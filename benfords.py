@@ -1,4 +1,5 @@
 from math import log
+import numpy
 
 # Functions
 def expectation(digit, position=1):
@@ -25,3 +26,14 @@ def expectation(digit, position=1):
 
             return value
 
+def fsd(data):
+    """
+    Given a pandas dataframe, numpy array, list or number, return the first significant digits of that data.
+    """
+    if type(data) == int:
+        if data == 0:
+            return "Zero has no first-significant digit. Please ensure your data has no zeros."
+    elif 0 in data:
+        return "Zero has no first-significant digit. Please ensure your data has no zeros."
+
+    return numpy.floor(10**(numpy.log10(numpy.abs(data))-numpy.floor(numpy.log10(numpy.abs(data)))))

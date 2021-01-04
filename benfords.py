@@ -1,6 +1,8 @@
 from math import log
 import numpy
 
+test = [5, 0.321, -2989.2, -0.00001]
+
 # Functions
 def expectation(digit, position=1):
     """
@@ -36,4 +38,21 @@ def fsd(data):
     elif 0 in data:
         return "Zero has no first-significant digit. Please ensure your data has no zeros."
 
-    return numpy.floor(10**(numpy.log10(numpy.abs(data))-numpy.floor(numpy.log10(numpy.abs(data)))))
+    return int(numpy.floor(10**(numpy.log10(numpy.abs(data))-numpy.floor(numpy.log10(numpy.abs(data))))))
+
+def nsd(data, position):
+    """
+    Given some data and the position of the digit desired, return the digit.
+    """
+    format_string = "{:.15e}"
+
+    scientific_notation = format_string.format(abs(data)) #Change to scientific notation and remove negative sign
+    value_string = scientific_notation.replace('.', '')[0:14] #Remove decimal point and limit to 14 characters
+    
+    return value_string[position-1]
+
+    """
+    nsd() currently works for scalars, but not lists, numpy arrays, or pandas dataframes. I think numpy format_float_scientific will help here.
+    """
+    
+

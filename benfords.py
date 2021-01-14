@@ -44,15 +44,25 @@ def nsd(data, position):
     """
     Given some data and the position of the digit desired, return the digit.
     """
-    format_string = "{:.15e}"
+    def np_slicer(a, start, end):
+        b = a.view((str,1)).reshape(len(a),-1)[:,start:end]
+        return numpy.fromstring(b.tostring(), dtype=(str, end-start))
 
-    scientific_notation = format_string.format(abs(data)) #Change to scientific notation and remove negative sign
-    value_string = scientific_notation.replace('.', '')[0:14] #Remove decimal point and limit to 14 characters
-    
-    return value_string[position-1]
+    if isinstance(data, (float, int)):
+        data = numpy.array([data])
+    if isinstance(data, list):
+        data = numpy.array(data)
 
-    """
-    nsd() currently works for scalars, but not lists, numpy arrays, or pandas dataframes. I think numpy format_float_scientific will help here.
-    """
-    
+    positive = numpy.absolute(data) #remove negative sign
+
+    data_np = []
+    for i in positive:
+        data_np.append(numpy.format_float_scientific(i, precision=15, unique=False))
+        
+    data_np = numpy.array(data_np)
+    clean_string = numpy.char.replace(data_np, '.', '')
+    truncated = np_slicer(clean_string, 0, 14)
+
+    return np_slicer(truncated, position-1, position)
+
 

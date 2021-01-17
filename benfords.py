@@ -1,9 +1,39 @@
 from math import log
+from random import uniform
+from collections import Counter
 import numpy
 
-test = [5, 0.321, -2989.2, -0.00001]
+testSmall = [5, 0.321, -2989.2, -0.00001]
+
+testLarge = []
+
+def testData():
+    for i in range(0,1000):
+        a = uniform(0,1)
+        b = 10.0**a
+        testLarge.append(b)
 
 # Functions
+def benfords(data):
+    """
+    Given a set of data, extract the significant digits and compare to Benford's Law.
+    """
+    results = dict()
+    sigdigits = fsd(data)
+    sigcounts = Counter(sigdigits)
+
+    for i in range(1,10):   #Digits 1-9
+        theoretical = expectation(i, position=1)
+        empirical = sigcounts[float(i)]/sigdigits.size
+
+        results[str(i)] = [theoretical, empirical]
+
+    return results
+
+    # Current state: first sig digit only. Next, add the ability to choose the starting position and number of digits.
+
+    
+
 def expectation(digit, position=1):
     """
     Given a non-zero integer, return the probability of a natural number starting with that digit as described by Benford's Law.

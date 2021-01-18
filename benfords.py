@@ -6,13 +6,8 @@ import numpy
 
 testSmall = [5, 0.321, -2989.2, -0.00001]
 
-testLarge = []
+testLarge = deviate(10000)
 
-def testData():
-    for i in range(0,1000):
-        a = uniform(0,1)
-        b = 10.0**a
-        testLarge.append(b)
 
 # Functions
 def benfords(data, start_position=1, output_csv=False):
@@ -54,15 +49,25 @@ def benfords(data, start_position=1, output_csv=False):
     # Current state: first sig digit only. Next, add the ability to choose the starting position and number of digits.
 
 
-def deviate():
+def deviate(x):
     """
     Returns a random Benford-distributed deviate.
     """
-    u = 0
-    while not (0 < u < 1):
-        u = uniform(0,1)
+    def single_deviate():
+        u = 0
+        while not (0 < u < 1):
+            u = uniform(0,1)
 
-    return 10**u
+        return 10**u
+
+    results = []
+    for i in range(0, x):
+        results.append(single_deviate())
+
+    return results
+        
+
+
 
 def expectation(digit, position=1):
     """

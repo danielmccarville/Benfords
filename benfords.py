@@ -53,7 +53,16 @@ def benfords(data, start_position=1, output_csv=False):
 
     # Current state: first sig digit only. Next, add the ability to choose the starting position and number of digits.
 
-    
+
+def deviate():
+    """
+    Returns a random Benford-distributed deviate.
+    """
+    u = 0
+    while not (0 < u < 1):
+        u = uniform(0,1)
+
+    return 10**u
 
 def expectation(digit, position=1):
     """

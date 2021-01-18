@@ -6,16 +6,20 @@ import numpy
 
 
 # Functions
-def benfords(data, start_position=1, output_csv=False):
+def benfords(data, start_position=1, length=1, output_csv=False):
     """
     Given a set of data, extract the significant digits and compare to Benford's Law.
     """
     results = dict()
-    sigdigits = nsd(data, start_position)
+    sigdigits = nsd(data, start_position, length)
     sigcounts = Counter(sigdigits)
 
-    digit_min = 1
-    digit_max = 9
+    if (length==1) and (position > 1):
+        digit_min = 0
+    else:
+        digit_min = 10**(length-1)
+    
+    digit_max = 10**(length)-1
 
     if start_position > 1:
         digit_min = 0
@@ -104,7 +108,7 @@ def fsd(data):
 
     return numpy.floor(10**(numpy.log10(numpy.abs(data))-numpy.floor(numpy.log10(numpy.abs(data)))))
 
-def nsd(data, position):
+def nsd(data, position, length=1):
     """
     Given some data and the position of the digit desired, return the digit.
     """
@@ -127,7 +131,7 @@ def nsd(data, position):
     clean_string = numpy.char.replace(data_np, '.', '')
     truncated = np_slicer(clean_string, 0, 14)
 
-    return np_slicer(truncated, position-1, position)
+    return np_slicer(truncated, position-1, position-1+length)
 
 
 # test data

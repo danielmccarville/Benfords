@@ -38,7 +38,7 @@ def benfords(data, start_position=1, output_csv=False):
     if output_csv is True:
         with open('Benfords Law output.csv', mode='w', newline='') as outputfile:
             writer = csv.writer(outputfile, delimiter = ',')
-            headers = ['Digit', 'Expected from Benfords Law', 'Actual from Data']
+            headers = ['Digit', 'Expected from Benfords Law', 'Actual from Data', 'Difference']
             writer.writerow(headers)
             
             for key,value in results.items():
@@ -46,6 +46,7 @@ def benfords(data, start_position=1, output_csv=False):
                 output_values.append(key)
                 for i in value:
                     output_values.append(i)
+                output_values.append(value[1]-value[0])
                 writer.writerow(output_values)
         
     return results

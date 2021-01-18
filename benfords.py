@@ -1,6 +1,7 @@
 from math import log
 from random import uniform
 from collections import Counter
+import csv
 import numpy
 
 testSmall = [5, 0.321, -2989.2, -0.00001]
@@ -14,7 +15,7 @@ def testData():
         testLarge.append(b)
 
 # Functions
-def benfords(data):
+def benfords(data, output_csv=False):
     """
     Given a set of data, extract the significant digits and compare to Benford's Law.
     """
@@ -28,6 +29,19 @@ def benfords(data):
 
         results[str(i)] = [theoretical, empirical]
 
+    if output_csv is True:
+        with open('Benfords Law output.csv', mode='w', newline='') as outputfile:
+            writer = csv.writer(outputfile, delimiter = ',')
+            headers = ['Digit', 'Expected from Benfords Law', 'Actual from Data']
+            writer.writerow(headers)
+            
+            for key,value in results.items():
+                output_values = []
+                output_values.append(key)
+                for i in value:
+                    output_values.append(i)
+                writer.writerow(output_values)
+        
     return results
 
     # Current state: first sig digit only. Next, add the ability to choose the starting position and number of digits.

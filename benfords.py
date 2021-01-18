@@ -15,17 +15,23 @@ def testData():
         testLarge.append(b)
 
 # Functions
-def benfords(data, output_csv=False):
+def benfords(data, start_position=1, output_csv=False):
     """
     Given a set of data, extract the significant digits and compare to Benford's Law.
     """
     results = dict()
-    sigdigits = fsd(data)
+    sigdigits = nsd(data, start_position)
     sigcounts = Counter(sigdigits)
 
-    for i in range(1,10):   #Digits 1-9
-        theoretical = expectation(i, position=1)
-        empirical = sigcounts[float(i)]/sigdigits.size
+    digit_min = 1
+    digit_max = 9
+
+    if start_position > 1:
+        digit_min = 0
+
+    for i in range(digit_min,digit_max+1):
+        theoretical = expectation(i, position=start_position)
+        empirical = sigcounts[str(i)]/sigdigits.size
 
         results[str(i)] = [theoretical, empirical]
 

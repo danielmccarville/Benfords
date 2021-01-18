@@ -4,10 +4,6 @@ from collections import Counter
 import csv
 import numpy
 
-testSmall = [5, 0.321, -2989.2, -0.00001]
-
-testLarge = deviate(10000)
-
 
 # Functions
 def benfords(data, start_position=1, output_csv=False):
@@ -27,8 +23,9 @@ def benfords(data, start_position=1, output_csv=False):
     for i in range(digit_min,digit_max+1):
         theoretical = expectation(i, position=start_position)
         empirical = sigcounts[str(i)]/sigdigits.size
+        difference = empirical - theoretical
 
-        results[str(i)] = [theoretical, empirical]
+        results[str(i)] = [theoretical, empirical, difference]
 
     if output_csv is True:
         with open('Benfords Law output.csv', mode='w', newline='') as outputfile:
@@ -41,7 +38,6 @@ def benfords(data, start_position=1, output_csv=False):
                 output_values.append(key)
                 for i in value:
                     output_values.append(i)
-                output_values.append(value[1]-value[0])
                 writer.writerow(output_values)
         
     return results
@@ -132,5 +128,10 @@ def nsd(data, position):
     truncated = np_slicer(clean_string, 0, 14)
 
     return np_slicer(truncated, position-1, position)
+
+
+# test data
+testSmall = [5, 0.321, -2989.2, -0.00001]
+testLarge = deviate(10000)
 
 

@@ -1,20 +1,19 @@
 from math import log
 from random import uniform
 from collections import Counter
-import csv
 import numpy
-
+import pandas as pd
 
 # Functions
 def benfords(data, start_position=1, length=1, output_csv=False):
     """
     Given a set of data, extract the significant digits and compare to Benford's Law.
     """
-    results = dict()
+    temp_results = []
     sigdigits = nsd(data, start_position, length)
     sigcounts = Counter(sigdigits)
 
-    if (length==1) and (position > 1):
+    if (length==1) and (start_position > 1):
         digit_min = 0
     else:
         digit_min = 10**(length-1)
@@ -29,24 +28,15 @@ def benfords(data, start_position=1, length=1, output_csv=False):
         empirical = sigcounts[str(i)]/sigdigits.size
         difference = empirical - theoretical
 
-        results[str(i)] = [theoretical, empirical, difference]
+        temp_results.append([i, theoretical, empirical, difference])
+
+    results = pd.DataFrame(temp_results, columns=['Digit', 'Expected Value', 'Actual Value', 'Difference'])
+    results.set_index('Digit')
 
     if output_csv is True:
-        with open('Benfords Law output.csv', mode='w', newline='') as outputfile:
-            writer = csv.writer(outputfile, delimiter = ',')
-            headers = ['Digit', 'Expected from Benfords Law', 'Actual from Data', 'Difference']
-            writer.writerow(headers)
-            
-            for key,value in results.items():
-                output_values = []
-                output_values.append(key)
-                for i in value:
-                    output_values.append(i)
-                writer.writerow(output_values)
+        results.to_csv('Benfords Law output.csv', index=False)
         
     return results
-
-    # Current state: first sig digit only. Next, add the ability to choose the starting position and number of digits.
 
 
 def deviate(x):

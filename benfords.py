@@ -148,7 +148,7 @@ def nsd(data, position, length=1):
     """
     def np_slicer(a, start, end):
         b = a.view((str,1)).reshape(len(a),-1)[:,start:end]
-        return numpy.fromstring(b.tobytes(), dtype=(str, end-start))
+        return numpy.frombuffer(b.tobytes(), dtype=(str, end-start))
 
     if isinstance(data, (float, int)):
         data = numpy.array([data])

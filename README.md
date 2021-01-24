@@ -83,6 +83,7 @@ fsd(test)
 ```
 
 #NSD() returns the nth digit of your data. It always returns a numpy array containing strings. It includes parameters to select the second, third, and higher digits, as well as control the number of digits. This example shows the 4th significant digits.
+```
 nsd(test, 4) 
 #array(['0', '1', '8', '0']
 

@@ -5,6 +5,7 @@ import numpy
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import warnings
 
 # Functions
 def plot(inputdata, digits, y_col_actual, y_col_expected, save=False):
@@ -35,8 +36,13 @@ def plot(inputdata, digits, y_col_actual, y_col_expected, save=False):
 
     handles, labels = ax2.get_legend_handles_labels()
     labels[1] = "_True"
-    ax2.legend(handles, labels)
-    
+
+    # Matplotlib returns a warning, because we used a label with an _.
+    # This is desirable, so the warning is suppressed.
+    with warnings.catch_warnings():
+        warnings.simplefilter('ignore', category=UserWarning)    
+        ax2.legend(handles, labels)
+
     plt.show()
 
 
@@ -166,6 +172,5 @@ def nsd(data, position, length=1):
 testSmall = [5, 0.321, -2989.2, -0.00001]
 testLarge = deviate(100)
 
-x = benfords(testLarge, output_plot=False)
 
 

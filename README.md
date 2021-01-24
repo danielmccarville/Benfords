@@ -35,7 +35,7 @@ benfords(test_data, output_csv=True, output_plot=True)
 ![Figure showing expected and theoretical digit frequencies](https://raw.githubusercontent.com/danielmccarville/Benfords/main/assets/Demo%20Figure.png)
 
 There are also parmeters for examining the digits beyond the first, as well as multiple digits at a time. This example uses the second and third digits:
-```
+```python
 benfords(test_data, start_position=2, length=2)
 #   Digit  Expected Value  Actual Value  Difference
 #0      0        0.119679         0.000   -0.119679
@@ -83,7 +83,7 @@ fsd(test)
 ```
 
 #NSD() returns the nth digit of your data. It always returns a numpy array containing strings. It includes parameters to select the second, third, and higher digits, as well as control the number of digits. This example shows the 4th significant digits.
-```
+```python
 nsd(test, 4) 
 #array(['0', '1', '8', '0']
 

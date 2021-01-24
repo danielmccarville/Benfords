@@ -152,7 +152,7 @@ def nsd(data, position, length=1):
 
     if isinstance(data, (float, int)):
         data = numpy.array([data])
-    if isinstance(data, list):
+    if isinstance(data, (list, pd.DataFrame)):
         data = numpy.array(data)
 
     positive = numpy.absolute(data) #remove negative sign

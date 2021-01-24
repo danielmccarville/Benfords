@@ -3,9 +3,43 @@ from random import uniform
 from collections import Counter
 import numpy
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Functions
-def benfords(data, start_position=1, length=1, output_csv=False):
+def plot(inputdata, digits, y_col_actual, y_col_expected, save=False):
+
+    plt.rcParams['patch.force_edgecolor']=True
+
+    ax1 = sns.barplot(
+        data=inputdata,
+        x = digits,
+        y = y_col_actual,
+        color = '#B2E8C2',
+        label='Actual Data'
+        )
+    ax1.set(ylabel='Relative Frequency')
+
+    ax2 = sns.lineplot(
+        data=inputdata,
+        x = digits,
+        y = y_col_expected,
+        ax = ax1,
+        zorder = 5,
+        color = 'black',
+        style=True,
+        dashes=[(2,2)],
+        markers=True,
+        label='Benfords Law',
+        )
+
+    if save==True:
+        
+    
+    plt.show()
+
+
+def benfords(data, start_position=1, length=1, output_csv=False, output_plot=False):
     """
     Given a set of data, extract the significant digits and compare to Benford's Law.
     """
@@ -28,7 +62,7 @@ def benfords(data, start_position=1, length=1, output_csv=False):
         empirical = sigcounts[str(i)]/sigdigits.size
         difference = empirical - theoretical
 
-        temp_results.append([i, theoretical, empirical, difference])
+        temp_results.append([str(i), theoretical, empirical, difference])
 
     results = pd.DataFrame(temp_results, columns=['Digit', 'Expected Value', 'Actual Value', 'Difference'])
     results.set_index('Digit')
@@ -126,6 +160,9 @@ def nsd(data, position, length=1):
 
 # test data
 testSmall = [5, 0.321, -2989.2, -0.00001]
-testLarge = deviate(10000)
+testLarge = deviate(100)
+
+x = benfords(testLarge)
+test = plot(x, 'Digit', 'Actual Value', 'Expected Value')
 
 

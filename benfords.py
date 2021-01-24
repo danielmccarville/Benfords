@@ -33,8 +33,9 @@ def plot(inputdata, digits, y_col_actual, y_col_expected, save=False):
         label='Benfords Law',
         )
 
-    if save==True:
-        
+    handles, labels = ax2.get_legend_handles_labels()
+    labels[1] = "_True"
+    ax2.legend(handles, labels)
     
     plt.show()
 

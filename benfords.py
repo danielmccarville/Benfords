@@ -70,6 +70,9 @@ def benfords(data, start_position=1, length=1, output_csv=False, output_plot=Fal
 
     if output_csv is True:
         results.to_csv('Benfords Law output.csv', index=False)
+
+    if output_plot is True:
+        plot(results, 'Digit', 'Actual Value', 'Expected Value', save=False)
         
     return results
 
@@ -163,7 +166,6 @@ def nsd(data, position, length=1):
 testSmall = [5, 0.321, -2989.2, -0.00001]
 testLarge = deviate(100)
 
-x = benfords(testLarge)
-test = plot(x, 'Digit', 'Actual Value', 'Expected Value')
+x = benfords(testLarge, output_plot=True)
 
 

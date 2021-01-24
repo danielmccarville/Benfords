@@ -157,6 +157,10 @@ def nsd(data, position, length=1):
 
     positive = numpy.absolute(data) #remove negative sign
 
+    number_zeroes = numpy.count_nonzero(positive==0)
+    if number_zeroes > 0:
+        return "Zero has no significant digits. Please ensure your data has no zeroes."
+
     data_np = []
     for i in positive:
         data_np.append(numpy.format_float_scientific(i, precision=15, unique=False))
@@ -169,7 +173,7 @@ def nsd(data, position, length=1):
 
 
 # test data
-testSmall = [5, 0.321, -2989.2, -0.00001]
+testSmall = [5, 0.321, -2989.2, -0.00001, 0]
 testLarge = deviate(100)
 
 

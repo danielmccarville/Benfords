@@ -173,8 +173,8 @@ def nsd(data, position, length=1):
 
 
 # test data
-testSmall = [5, 0.321, -2989.2, -0.00001, 0]
-testLarge = deviate(100)
+# testSmall = [5, 0.321, -2989.2, -0.00001, 0]
+# testLarge = deviate(100)
 
 
 

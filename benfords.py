@@ -134,7 +134,7 @@ def fsd(data):
     elif 0 in data:
         return "Zero has no first-significant digit. Please ensure your data has no zeros."
 
-    return numpy.floor(10**(numpy.log10(numpy.abs(data))-numpy.floor(numpy.log10(numpy.abs(data)))))
+    return numpy.array(numpy.floor(10**(numpy.log10(numpy.abs(data))-numpy.floor(numpy.log10(numpy.abs(data))))))
 
 def nsd(data, position, length=1):
     """
@@ -166,6 +166,6 @@ def nsd(data, position, length=1):
 testSmall = [5, 0.321, -2989.2, -0.00001]
 testLarge = deviate(100)
 
-x = benfords(testLarge, output_plot=True)
+x = benfords(testLarge, output_plot=False)
 
 

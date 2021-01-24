@@ -31,8 +31,8 @@ benfords(test_data)
 benfords() can also output charts and csv:
 ```python
 benfords(test_data, output_csv=True, output_plot=True)
-![Figure showing expected and theoretical digit frequencies](https://raw.githubusercontent.com/danielmccarville/Benfords/main/assets/Demo%20Figure.png)
 ```
+![Figure showing expected and theoretical digit frequencies](https://raw.githubusercontent.com/danielmccarville/Benfords/main/assets/Demo%20Figure.png)
 
 There are also parmeters for examining the digits beyond the first, as well as multiple digits at a time. This example uses the second and third digits:
 ```

@@ -1,10 +1,10 @@
 # Benfords
-Benfords is a Python library built to assist with using Benford's Law.
+Benfords provides a series of functions intended to make Benford's Law research and usage more convenient.
 
 
 
 ## Usage
-Benfords allows you two do two things: to calculate the expected probability of digits, and to extract the actual digits from your data.
+With Benfords you can conduct quick comparisons to Benfords law, create outputs like charts and .csv files, generate random Benford-deviates, as well as calculate the expected probabilities or extract your own empirical digit frequencies.
 
 ### Comparisons to Benford's Law
 The benfords() function allows you to quickly compare your data's digits to Benford's Law:
@@ -31,7 +31,7 @@ benfords(test_data)
 benfords() can also output charts and csv:
 ```python
 benfords(test_data, output_csv=True, output_plot=True)
-![](/assets/Demo Figure.png)
+![](https://raw.githubusercontent.com/danielmccarville/Benfords/main/assets/Demo%20Figure.png)
 ```
 
 There are also parmeters for examining the digits beyond the first, as well as multiple digits at a time. This example uses the second and third digits:

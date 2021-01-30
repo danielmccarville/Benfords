@@ -46,14 +46,22 @@ def plot(inputdata, digits, y_col_actual, y_col_expected, save=False):
     plt.show()
 
 
-def benfords(data, start_position=1, length=1, output_csv=False, output_plot=False):
+def benfords(data, start_position=1, second_order = False, length=1, output_csv=False, output_plot=False):
     """
     Given a set of data, extract the significant digits and compare to Benford's Law.
     """
     temp_results = []
+
+    #If this is a second-order test, transform the input.
+    if second_order == True:
+        data = pd.DataFrame(data).sort_values(by=0, ascending=False).diff()
+        data = data.loc[(data!=0).any(axis=1)]
+
+    #Get significant digits from data.
     sigdigits = nsd(data, start_position, length)
     sigcounts = Counter(sigdigits)
 
+    #Identify the range of digits for Beford's Law.
     if (length==1) and (start_position > 1):
         digit_min = 0
     else:
@@ -64,6 +72,7 @@ def benfords(data, start_position=1, length=1, output_csv=False, output_plot=Fal
     if start_position > 1:
         digit_min = 0
 
+    #Calculate the expected and empirical digit frequenices.
     for i in range(digit_min,digit_max+1):
         theoretical = expectation(i, position=start_position)
         empirical = sigcounts[str(i)]/sigdigits.size
@@ -71,6 +80,7 @@ def benfords(data, start_position=1, length=1, output_csv=False, output_plot=Fal
 
         temp_results.append([str(i), theoretical, empirical, difference])
 
+    #Outputs.
     results = pd.DataFrame(temp_results, columns=['Digit', 'Expected Value', 'Actual Value', 'Difference'])
     results.set_index('Digit')
 

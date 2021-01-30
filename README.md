@@ -4,7 +4,7 @@ Benfords provides a series of functions intended to make Benford's Law research 
 
 
 ## Usage
-With Benfords you can conduct quick comparisons to Benfords law, create outputs like charts and .csv files, generate random Benford-deviates, as well as calculate the expected probabilities or extract your own empirical digit frequencies.
+With Benfords you can conduct quick comparisons to Benfords law, create outputs like charts and .csv files, generate random Benford-variates, as well as calculate the expected probabilities or extract your own empirical digit frequencies.
 
 ### Comparisons to Benford's Law
 The benfords() function allows you to quickly compare your data's digits to Benford's Law:
@@ -12,7 +12,7 @@ The benfords() function allows you to quickly compare your data's digits to Benf
 import benfords
 
 #Generate some random data
-test_data = deviate(1000)
+test_data = variate(1000)
 
 #Compare to Benford's Law
 benfords(test_data)
@@ -54,9 +54,9 @@ benfords(test_data, start_position=2, length=2)
 ```
 
 ### Generate random Benford-distributed digits.
-You can generate random Benford-distributed digits with the deviate() function. Just specify how many you want:
+You can generate random Benford-distributed digits with the variate() function. Just specify how many you want:
 ```python
-deviate(5)
+variate(5)
 
 # [6.494198781949683, 5.511615661880242, 7.311726835973362, 1.6809486480388234, 8.877345103827716]
 ```

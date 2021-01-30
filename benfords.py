@@ -8,7 +8,7 @@ import seaborn as sns
 import warnings
 
 # Functions
-def plot(inputdata, digits, y_col_actual, y_col_expected, save=False):
+def plot(inputdata, digits, y_col_actual, y_col_expected, filename='benfords'):
 
     plt.rcParams['patch.force_edgecolor']=True
 
@@ -43,10 +43,13 @@ def plot(inputdata, digits, y_col_actual, y_col_expected, save=False):
         warnings.simplefilter('ignore', category=UserWarning)    
         ax2.legend(handles, labels)
 
-    plt.show()
+    plot_name = filename+'.jpg'
+    plt.savefig(plot_name)
+        
+    #plt.show()
 
 
-def benfords(data, start_position=1, second_order = False, length=1, output_csv=False, output_plot=False):
+def benfords(data, start_position=1, second_order = False, length=1, output_csv=False, output_plot=False, filename='benfords'):
     """
     Given a set of data, extract the significant digits and compare to Benford's Law.
     """
@@ -85,10 +88,11 @@ def benfords(data, start_position=1, second_order = False, length=1, output_csv=
     results.set_index('Digit')
 
     if output_csv is True:
-        results.to_csv('Benfords Law output.csv', index=False)
+        csvname = filename+'.csv'
+        results.to_csv(csvname, index=False)
 
     if output_plot is True:
-        plot(results, 'Digit', 'Actual Value', 'Expected Value', save=False)
+        plot(results, 'Digit', 'Actual Value', 'Expected Value', filename=filename)
         
     return results
 

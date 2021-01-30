@@ -83,11 +83,11 @@ def benfords(data, start_position=1, length=1, output_csv=False, output_plot=Fal
     return results
 
 
-def deviate(x):
+def variate(x):
     """
-    Returns a random Benford-distributed deviate.
+    Returns a random Benford-distributed number.
     """
-    def single_deviate():
+    def single_variate():
         u = 0
         while not (0 < u < 1):
             u = uniform(0,1)
@@ -96,7 +96,7 @@ def deviate(x):
 
     results = []
     for i in range(0, x):
-        results.append(single_deviate())
+        results.append(single_variate())
 
     return results
         
@@ -174,7 +174,7 @@ def nsd(data, position, length=1):
 
 # test data
 # testSmall = [5, 0.321, -2989.2, -0.00001, 0]
-# testLarge = deviate(100)
+# testLarge = variate(100)
 
 
 

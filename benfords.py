@@ -1,4 +1,4 @@
-from math import log
+from math import log, sqrt
 from random import uniform
 from collections import Counter
 import numpy
@@ -184,6 +184,19 @@ def nsd(data, position, length=1):
     truncated = np_slicer(clean_string, 0, 14)
 
     return np_slicer(truncated, position-1, position-1+length)
+
+def test(data, test_statistic='d'):
+    """ Given the results of benfords(), return a test statistic or hypothesis test. """
+
+    if test_statistic not in ['d']:
+        return 'Test statistic '+test_statistic+' is not recognized or is not currenly supported.'
+
+    #Cho and Gaines d statistic.
+    if test_statistic == 'd':
+        data['diff_squ'] = data['Difference']**2
+        d = sqrt(data['diff_squ'].sum())
+        return d
+
 
 
 # test data

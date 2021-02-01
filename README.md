@@ -28,9 +28,16 @@ benfords(test_data)
 #8     9        0.045757         0.049    0.003243
 ```
 
+Use test() to calculate test statistics:
+```python
+test(benfords(test_data), test_statistic='d')
+# 0.01914657325117365
+```
+Currently, test() supports only the d statistic described in [Cho and Gaines, 2012](http://cho.pol.illinois.edu/wendy/papers/bentas.pdf). Future releases will include additional test statistics.
+
 benfords() can also output charts and csv:
 ```python
-benfords(test_data, output_csv=True, output_plot=True)
+benfords(test_data, output_csv=True, output_plot=True, filename='2021-01-31 Analysis')
 ```
 ![Figure showing expected and theoretical digit frequencies](https://raw.githubusercontent.com/danielmccarville/Benfords/main/assets/Demo%20Figure.png)
 
